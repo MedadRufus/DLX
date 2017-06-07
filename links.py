@@ -39,19 +39,23 @@ class Link:
     node.down = self
   
   def removeFromRow(self):
+    # print "removing %s"%(self.label)
     self.left.right = self.right
     self.right.left = self.left
 
   def removeFromColumn(self):
+    # print "Unlinking %s"%(self.col.label)
     self.up.down = self.down
     self.down.up = self.up
   
   def resetInColumn(self):
-    self.up = self
-    self.down = self
+    # print "Linking %s"%(self.col.label)
+    self.up.down = self
+    self.down.up = self
 
 
   def resetInRow(self):
+    # print "Resetting %s"%(self.label)
     self.left.right = self
     self.right.left = self
 
@@ -66,7 +70,7 @@ class Column(Link):
 
   def addRow(self):
     row = Link(self)
-    self.setDown(row)
+    self.setUp(row)
     self.length += 1
     return row
   

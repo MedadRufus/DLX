@@ -59,16 +59,12 @@ def cover(column):
   column.removeFromRow()
   rNode = column.down
 
-  # labels = []
   while rNode != column:
-    #For each column in this row
-
     cNode = rNode.right
+    
     while cNode != rNode:
-      # labels.append(cNode.col.label);
       cNode.removeFromColumn()
       cNode.col.length -= 1
-      # print "%s is now length %d"%(cNode.col.label, cNode.col.length) 
       cNode = cNode.right
     rNode = rNode.down
   
@@ -78,12 +74,10 @@ def cover(column):
 def uncover(column):
   rNode = column.up
   
-  labels = []
   while rNode != column:
-    cNode = rNode.left
+    cNode = rNode.left 
 
     while cNode != rNode:
-      labels.append(cNode.col.label)
       cNode.resetInColumn()
       cNode.col.length += 1
       cNode = cNode.left

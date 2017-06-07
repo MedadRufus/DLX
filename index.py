@@ -2,16 +2,25 @@ from links import Link, Column
 from utils import checkLinks, cover, uncover, lengths, inspectCols, findShortestColumn
 from createMatrix import createMatrix
 
-matrix = {
-  'A': [2, 4],
-  'B': [3, 5],
-  'C': [1, 3],
-  'D': [2, 4, 6],
-  'E': [1, 6],
-  'F': [1, 3],
-  'G': [2, 5, 6]
-}
+# matrix = {
+#   'A': [2, 4],
+#   'B': [3, 5],
+#   'C': [1, 3],
+#   'D': [2, 4, 6],
+#   'E': [1, 6],
+#   'F': [1, 3],
+#   'G': [2, 5, 6]
+# }
 
+matrix = {
+  1: ['A', 'B'],
+  2: ['E', 'F'],
+  3: ['D', 'E'],
+  4: ['A', 'B', 'C'],
+  5: ['C', 'D'],
+  6: ['D', 'E'],
+  7: ['A', 'C', 'E', 'F']
+}
 
 # matrix = {
 #   'A': [1, 2],
@@ -70,11 +79,19 @@ def DLX(matrix):
     if root.right == root:
       print 'Solution found!'
       for i in solution:
-        print i.col.label
+        ans = [i.col.label]
+        node = i.right
+        while node != i:
+          ans.append(node.col.label)
+          node = node.right
+        print ans
+
       return True
     # Find shortest column
+    # inspectCols(root)
+    
     target = findShortestColumn(root)
-    row = target.getFirstRow()
+    row = target.down
     cover(target)
 
     while row != target:
@@ -86,7 +103,6 @@ def DLX(matrix):
         col = col.right
 
       search(k + 1, solution + [newSolution])
-      target = row.col
       col = row.left
 
       while col != row:
@@ -106,6 +122,6 @@ def DLX(matrix):
   
 solution = DLX(matrix)
 
-print 'Result: '
-for i in solution:
-  print i.col.label
+# print 'Result: '
+# for i in solution:
+#   print i.col.label
